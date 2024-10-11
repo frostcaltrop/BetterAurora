@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Better Aurora</title>
+</head>
+<body>
+    <h1>Better Aurora</h1>
+    <h2>Ip Location</h2>
+    <p id="lat_lon">Latitude & Longitude</p>
+    <p id="geo_lat">Geomagnetic Latitude</p>
+    <h2>NOAA Scales Overview <a href="https://www.swpc.noaa.gov/" target="_blank">(Learn more)</a> </h2>
+    <div id="overviewContent">Loading...</div>
+
+    <h2> Real-time Solar Wind <a href="https://www.swpc.noaa.gov/" target="_blank">(Learn more)</a></h2>
+    <p id="solar_wind">Solar Wind</p>
+
+    <h2>LASCO Coronagraph <a href="https://www.swpc.noaa.gov/products/lasco-coronagraph" target="_blank">(Learn more)</a></h2>
+    <h3>LASCO C2</h3>
+    <img src="http://127.0.0.1:5000/stream_lascoc2" >
+    <h3>LASCO C3</h3>
+    <img src="http://127.0.0.1:5000/stream_lascoc3">
+
+    <h2>WSA-ENLIL Solar Wind Prediction <a href="https://www.swpc.noaa.gov/products/wsa-enlil-solar-wind-prediction" target="_blank">(Learn more)</a></h2>
+    <img src="http://127.0.0.1:5000/stream_wsa-enlil">
+
+    <h2>Latest HUXt Ensemble Forecast <a href="https://research.reading.ac.uk/met-spate/huxt-forecast/" target="_blank">(Learn more)</a></h2>
+    <img id="HUXtImage" alt="BtBz Data" style="max-width: 100%;">
+
+    <h2>3-Day Forecast <a href="https://www.swpc.noaa.gov/products/3-day-forecast" target="_blank">(Learn more)</a></h2>
+    <pre id="forecastContent"> Loading forecast</pre>
+
+    <h2> 24-hour Kp index <a href="https://www.swpc.noaa.gov/products/planetary-k-index" target="_blank">(Learn more)</a></h2>
+    <img id="kp_image" alt="Kp Index Image" style="max-width: 100%;">
+
+    <h2>ACE Solar Wind Data <a href="https://www.swpc.noaa.gov/products/real-time-solar-wind" target="_blank">(Learn more)</a></h2>
+    <img id="BtBzImage" alt="BtBz Data" style="max-width: 100%;">
+    <img id="phiImage" alt="Phi Data" style="max-width: 100%;">
+    <img id="speedImage" alt="Speed Data" style="max-width: 100%;">
+    <img id="densityImage" alt="Density Data" style="max-width: 100%;">
+    <img id="temperatureImage" alt="Temperature Data" style="max-width: 100%;">
+
+    <h2>WDC AE Data  <a href="https://wdc.kugi.kyoto-u.ac.jp/ae_realtime/today/today.html" target="_blank">(Learn more)</a></h2>
+    <img id="aeImage" alt="AE Data" style="max-width: 100%;">
+
+    <h2>Aurora 30 min forecast  <a href="https://www.swpc.noaa.gov/products/aurora-30-minute-forecast" target="_blank">(Learn more)</a></h2>
+    <img src="http://127.0.0.1:5000/stream_aurora">
+
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
