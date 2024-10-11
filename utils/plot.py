@@ -1,6 +1,7 @@
 import io
 from datetime import datetime, timedelta
-
+import matplotlib
+matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 
 def Kp_plot(data):
