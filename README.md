@@ -12,6 +12,18 @@ This application fetches data from external services such as NOAA, WDC Kyoto, an
    pip install -r requirements.txt
    ```
 
+   **HINT:** if you find problems with installing `aacgmv2` (such as `Failed building wheel for aacgmv2`), follow such steps
+
+   1. open the `requirements.txt` and remove the first line (`aacgmv2==2.6.3`), save and quit
+
+   2. open your terminal/bash, then install
+
+      `pip install aacgv2 --no-binary :all:`
+
+       `pip install -r requirements.txt `
+
+   3. after finishing these steps, you can Run `app.py`
+
 2. Run `app.py` and ensure the application is running correctly:
 
    ```bash
