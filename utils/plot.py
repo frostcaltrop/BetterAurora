@@ -103,7 +103,7 @@ def two_dim_dot_plot(data, colors):
     plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%Y-%m-%d %H'))
     plt.gca().xaxis.set_major_locator(plt.matplotlib.dates.HourLocator(interval=1))
 
-    plt.xticks(rotation=90, fontsize=8)
+    plt.xticks(rotation=45, fontsize=8)
 
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
 
