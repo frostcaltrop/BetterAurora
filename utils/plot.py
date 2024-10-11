@@ -92,25 +92,26 @@ def two_dim_dot_plot(data, colors):
         value1.append(float(entry[1]))
         value2.append(float(entry[2]))
 
-    plt.figure(figsize=(12, 6), dpi=150)
-    plt.scatter(time_tags, value1, c=colors[0], s = 5, alpha=0.3)
-    plt.scatter(time_tags, value2, c=colors[1], s=5, alpha=0.3)
+    fig,ax = plt.subplots(figsize=(12, 6), dpi=150)
+    ax.scatter(time_tags, value1, c=colors[0], s=5, alpha=0.3,label=data[0][1])
+    ax.scatter(time_tags, value2, c=colors[1], s=5, alpha=0.3,label=data[0][2])
 
-    plt.xlabel('Time (UTC+8)')
-    plt.ylabel(data[0][1])
-    plt.title(f'Dot Plot for {data[0][1]} and {data[0][2]} (UTC+8)')
+    ax.set_xlabel('Time (UTC+8)')
+    ax.set_ylabel(data[0][1])
+    ax.set_title(f'Dot Plot for {data[0][1]} and {data[0][2]} (UTC+8)')
 
-    plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%Y-%m-%d %H'))
-    plt.gca().xaxis.set_major_locator(plt.matplotlib.dates.HourLocator(interval=1))
+    ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%Y-%m-%d %H'))
+    ax.xaxis.set_major_locator(matplotlib.dates.HourLocator(interval=1))
 
     plt.xticks(rotation=45, fontsize=8)
 
-    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+    ax.grid(True, which='both', linestyle='--', linewidth=0.5)
+    ax.legend()
 
     img = io.BytesIO()
-    plt.savefig(img, format='png')
+    fig.savefig(img, format='png')
     img.seek(0)
-    plt.close()
+    plt.close(fig)
 
     return img
     pass
