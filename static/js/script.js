@@ -134,7 +134,7 @@ loadLASCO();
 loadWSA();
 
 const min = 1000*60;
-setInterval(fetchSolarWind, 5*min);
+setInterval(fetchSolarWind, 1*min);
 setInterval(fetchKpImage, 30*min);
 setInterval(fetchPlasma, 10*min);
 setInterval(fetchMag, 10*min);
