@@ -1,4 +1,8 @@
-# Better Aurora for UTC+8
+# Better Aurora (for UTC+8)
+
+## What is it?
+
+It contains much data from NOAA, WDC... in one Tab, and refresh automatically. So that you needn't open hundreds of tabs to know the data for coming solar wind/cme/aurora. And you can get your geomagnetic altitude (to know why it is difficult to have a better vision for aurora in your location).
 
 ## How Does It Work?
 
