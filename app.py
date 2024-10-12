@@ -405,5 +405,19 @@ def get_location():
     geomagnetic_lat, geomagnetic_lon, geomagnetic_alt = aacgmv2.get_aacgm_coord(latitude, longitude, altitude, datetime.now(timezone.utc))
     return jsonify({'latitude': latitude, 'longitude': longitude, 'geolatitude': geomagnetic_lat})
 
+@app.route('/aurora')
+def get_aurora_pic():
+    req_url = 'https://services.swpc.noaa.gov/products/animations/ovation_north_24h.json'
+    req_res = requests.get(req_url, timeout=10)
+    if req_res.status_code == 200:
+        data = req_res.json()
+        img_url = f'https://services.swpc.noaa.gov/{data[-1]["url"]}'
+        img_res = requests.get(img_url, timeout=10)
+        if img_res.status_code == 200:
+            return jsonify({
+                'aurora_image': image_to_base64(BytesIO(img_res.content))
+            }), 200
+    return jsonify({'error': 'Unable to fetch aurora image'}), 404
+    pass
 if __name__ == '__main__':
     app.run(debug=True)

@@ -10,45 +10,93 @@
 <body>
     <h1>Better Aurora</h1>
 
-    <h2>Ip Location</h2>
-    <p id="lat_lon">Latitude & Longitude</p>
-    <p id="geo_lat">Geomagnetic Latitude</p>
-    <h2>NOAA Scales Overview <a href="https://www.swpc.noaa.gov/" target="_blank">(Learn more)</a> </h2>
-    <div id="overviewContent">Loading...</div>
+    <div id="toc">
+    <h2 class="collapsible">MENU</h2>
+        <div class="content">
+            <ul>
+        <li><a href="#geomagnetic-latitude">Geomagnetic Latitude</a></li>
+        <li><a href="#overview">NOAA Overview</a></li>
+        <li class="h3"><a href="#scales">NOAA Scale</a> </li>
+        <li class="h3"><a href="#realtime-solarwind">Real-time SolarWind</a> </li>
+        <li><a href="#coronagraph">Realtime Coronagraph</a> </li>
+        <li class="h3"><a href="#lasco">LASCO Coronagraph</a> </li>
+        <li><a href="#solarwind-prediction">SolarWind Prediction</a> </li>
+        <li class="h3"><a href="#wsa">WSA Prediction</a> </li>
+        <li class="h3"><a href="#huxt">HUXt Prediction</a> </li>
+        <li><a href="#index">Index</a> </li>
+        <li class="h3"><a href="#kp3d">3-Day Kp ForeCast</a> </li>
+        <li class="h3"><a href="#kp24h">Kp Index Observation</a> </li>
+        <li class="h3"><a href="#ae">Today AE Index</a> </li>
+        <li><a href="#solarwind-data">24h SolarWind Data</a> </li>
+        <li class="h3"><a href="#ace">ACE SolarWind Data</a> </li>
+        <li><a href="#aurora">AURORA</a> </li>
+        <li class="h3"><a href="#aurora-30m">AURORA 30m Prediction</a> </li>
+        <!-- 添加其他部分的列表项 -->
+        </ul>
+        </div>
+    </div>
 
-    <h2> Real-time Solar Wind (AUTO Update every 1 min)<a href="https://www.swpc.noaa.gov/" target="_blank">(Learn more)</a></h2>
-    <p id="solar_wind">Solar Wind</p>
 
-    <h2>LASCO Coronagraph (AUTO Update every 120 mins)<a href="https://www.swpc.noaa.gov/products/lasco-coronagraph" target="_blank">(Learn more)</a></h2>
-    <h3>LASCO C2</h3>
-    <img id="LascoC2" >
-    <h3>LASCO C3</h3>
-    <img id="LascoC3">
+    <h2 id="geomagnetic-latitude" class="collapsible">Your Geomagnetic Latitude(By your IP)</h2>
+    <div class="content">
+        <p id="lat_lon">Latitude & Longitude</p>
+        <p id="geo_lat">Geomagnetic Latitude</p>
+    </div>
 
-    <h2>WSA-ENLIL Solar Wind Prediction (AUTO Update every 60 mins)<a href="https://www.swpc.noaa.gov/products/wsa-enlil-solar-wind-prediction" target="_blank">(Learn more)</a></h2>
-    <img id="WSA">
+    <h2 id="overview" class="collapsible">NOAA Overview</h2>
+    <div class="content">
+        <h3 id="scales">NOAA Scales Overview (AUTO Update every 60 mins)<a href="https://www.swpc.noaa.gov/" target="_blank">(Learn more)</a> </h3>
+            <div id="overviewContent">Loading...</div>
+        <h3 id="realtime-solarwind"> Real-time Solar Wind (AUTO Update every minute)<a href="https://www.swpc.noaa.gov/" target="_blank">(Learn more)</a></h3>
+            <p id="solar_wind">Solar Wind</p>
+    </div>
 
-    <h2>Latest HUXt Ensemble Forecast (AUTO Update every 30 mins)<a href="https://research.reading.ac.uk/met-spate/huxt-forecast/" target="_blank">(Learn more)</a></h2>
-    <img id="HUXtImage" alt="BtBz Data" style="max-width: 100%;">
+    <h2 id="coronagraph" class="collapsible">Realtime Coronagraph</h2>
+         <div class="content">
+             <h3 id="lasco">LASCO Coronagraph (AUTO Update every 120 mins)<a href="https://www.swpc.noaa.gov/products/lasco-coronagraph" target="_blank">(Learn more)</a></h3>
+             <h4>LASCO C2</h4>
+             <img id="LascoC2" alt="Loading LascoC2">
+             <h4>LASCO C3</h4>
+             <img id="LascoC3" alt="Loading LascoC3">
+         </div>
 
-    <h2>3-Day Forecast (AUTO Update every 180 mins)<a href="https://www.swpc.noaa.gov/products/3-day-forecast" target="_blank">(Learn more)</a></h2>
-    <pre id="forecastContent"> Loading forecast</pre>
+    <h2 id="solarwind-prediction" class="collapsible">Solar Wind Prediction</h2>
+    <div class="content">
+        <h3 id="wsa">WSA-ENLIL Solar Wind Prediction (AUTO Update every 60 mins)<a href="https://www.swpc.noaa.gov/products/wsa-enlil-solar-wind-prediction" target="_blank">(Learn more)</a></h3>
+        <img id="WSA" alt="Loading WSA">
 
-    <h2> 24-hour Kp index (AUTO Update every 30 mins)<a href="https://www.swpc.noaa.gov/products/planetary-k-index" target="_blank">(Learn more)</a></h2>
-    <img id="kp_image" alt="Kp Index Image" style="max-width: 100%;">
+        <h3 id="huxt">Latest HUXt Ensemble Forecast (AUTO Update every 30 mins)<a href="https://research.reading.ac.uk/met-spate/huxt-forecast/" target="_blank">(Learn more)</a></h3>
+        <img id="HUXtImage" alt="Loading HUXt">
+    </div>
 
-    <h2>ACE Solar Wind Data (AUTO Update every 10 mins)<a href="https://www.swpc.noaa.gov/products/real-time-solar-wind" target="_blank">(Learn more)</a></h2>
-    <img id="BtBzImage" alt="BtBz Data" style="max-width: 100%;">
-    <img id="phiImage" alt="Phi Data" style="max-width: 100%;">
-    <img id="speedImage" alt="Speed Data" style="max-width: 100%;">
-    <img id="densityImage" alt="Density Data" style="max-width: 100%;">
-    <img id="temperatureImage" alt="Temperature Data" style="max-width: 100%;">
+    <h2 id="index" class="collapsible">Index</h2>
+    <div class="content">
+        <h3 id="kp3d">3-Day Forecast (AUTO Update every 180 mins)<a href="https://www.swpc.noaa.gov/products/3-day-forecast" target="_blank">(Learn more)</a></h3>
+        <pre id="forecastContent">Loading forecast</pre>
 
-    <h2>WDC AE Data (AUTO Update every 10 mins)<a href="https://wdc.kugi.kyoto-u.ac.jp/ae_realtime/today/today.html" target="_blank">(Learn more)</a></h2>
-    <img id="aeImage" alt="AE Data" style="max-width: 100%;">
+        <h3 id="kp24h">Kp index Observation(AUTO Update every 30 mins)<a href="https://www.swpc.noaa.gov/products/planetary-k-index" target="_blank">(Learn more)</a></h3>
+        <img id="kp_image" alt="Loading KP Image">
 
-    <h2>Aurora 30 min forecast (AUTO Update every 30 mins)<a href="https://www.swpc.noaa.gov/products/aurora-30-minute-forecast" target="_blank">(Learn more)</a></h2>
-    <img id="AURORA">
+        <h3 id="ae">WDC AE Index (AUTO Update every 10 mins)<a href="https://wdc.kugi.kyoto-u.ac.jp/ae_realtime/today/today.html" target="_blank">(Learn more)</a></h3>
+        <img id="aeImage" alt="Loading AE Image" style="max-width: 100%;">
+    </div>
+
+    <h2 id="solarwind-data" class="collapsible">Solar Wind Data</h2>
+    <div class="content">
+        <h3 id="ace">ACE Solar Wind Data (AUTO Update every 10 mins)<a href="https://www.swpc.noaa.gov/products/real-time-solar-wind" target="_blank">(Learn more)</a></h3>
+        <img id="BtBzImage" alt="Loading BtBz Data" >
+        <img id="phiImage" alt="Loading Phi Data" >
+        <img id="speedImage" alt="Loading Speed Data" >
+        <img id="densityImage" alt="Loading Density Data" >
+        <img id="temperatureImage" alt="Loading Temperature Data" >
+    </div>
+
+    <h2 id="aurora" class="collapsible">Aurora</h2>
+    <div class="content">
+        <h3 id="aurora-30m"> Aurora 30 min forecast (AUTO Update every 30 mins)<a href="https://www.swpc.noaa.gov/products/aurora-30-minute-forecast" target="_blank">(Learn more)</a></h3>
+        <img id="AURORA" alt="Loading Aurora Video">
+        <img id="AURORA_pic" alt="Loading Aurora Picture">
+    </div>
 
 
     <script src="/static/js/script.js"></script>

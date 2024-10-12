@@ -117,8 +117,74 @@ function loadWSA(){
 }
 
 function loadAURORA(){
-    document.getElementById("AURORA").src = `http://127.0.0.1:5000/stream_aurora?t=${new Date().getTime()}`
+    document.getElementById("AURORA").src = `http://127.0.0.1:5000/stream_aurora?t=${new Date().getTime()}`;
+    fetch(`/aurora?t=${new Date().getTime()}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('AURORA_pic').src = data.aurora_image;
+        })
+        .catch(error => console.error('Error fetching images:', error));
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const tocLinks = document.querySelectorAll('#toc a');
+    const collapsibles = document.querySelectorAll('.collapsible');
+
+    collapsibles.forEach(function(collapsible) {
+        const content = collapsible.nextElementSibling;
+
+        collapsible.addEventListener('click', function() {
+            this.classList.toggle('active');
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+
+        const images = content.querySelectorAll('img');
+        images.forEach(image => {
+            image.addEventListener('load', () => {
+                if (collapsible.classList.contains('active')) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        });
+    });
+
+    tocLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetID = this.getAttribute('href').trim();
+
+            try {
+                const targetElement = document.querySelector(targetID);
+
+                let sectionElement = targetElement.closest('.collapsible');
+                if (!sectionElement) {
+                    sectionElement = targetElement.closest('.content')?.previousElementSibling;
+                }
+
+                if (sectionElement && sectionElement.classList.contains('collapsible') && !sectionElement.classList.contains('active')) {
+                    sectionElement.click();
+                }
+
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            } catch (error) {
+                console.error("Error selecting target element:", error);
+            }
+        });
+    });
+
+
+});
+
+
+
+
 
 
 fetchSolarWind();

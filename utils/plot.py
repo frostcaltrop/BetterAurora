@@ -74,7 +74,7 @@ def one_dim_dot_plot(data, color):
 
     ax.set_xlabel('Time (UTC+8)')
     ax.set_ylabel(data[0][1])
-    ax.set_title(f'Dot Plot for {data[0][1]}  (UTC+8)')
+    ax.set_title(f'24H-{data[0][1]}  (UTC+8)')
 
     ax.xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%Y-%m-%d %H'))
     ax.xaxis.set_major_locator(plt.matplotlib.dates.HourLocator(interval=1))
@@ -111,7 +111,7 @@ def two_dim_dot_plot(data, colors):
 
     ax.set_xlabel('Time (UTC+8)')
     ax.set_ylabel(data[0][1])
-    ax.set_title(f'Dot Plot for {data[0][1]} and {data[0][2]} (UTC+8)')
+    ax.set_title(f'24H-{data[0][1]} and {data[0][2]} (UTC+8)')
 
     ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%Y-%m-%d %H'))
     ax.xaxis.set_major_locator(matplotlib.dates.HourLocator(interval=1))
