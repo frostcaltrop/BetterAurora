@@ -3,6 +3,9 @@ from datetime import datetime, timedelta
 import matplotlib
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt
+from multiprocessing import Lock
+
+lock = Lock()
 
 def Kp_plot(data):
     time_tags = []
@@ -30,22 +33,26 @@ def Kp_plot(data):
         else:
             colors.append('red')
 
-    plt.figure(figsize=(12, 6))
-    plt.bar(time_tags, kp_values, color=colors)
+    lock.acquire()
+
+    fig, ax = plt.subplots(figsize=(12, 6))
+    ax.bar(time_tags, kp_values, color=colors)
 
     for i, v in enumerate(kp_values):
-        plt.text(i, v + 0.1, f"{v}", ha='center', va='bottom')
+        ax.text(i, v + 0.1, f"{v}", ha='center', va='bottom')
 
     plt.xticks(rotation=90, fontsize=8)
-    plt.xlabel('Time')
-    plt.ylabel('Kp Index')
-    plt.title('Kp Index over Time (UTC+8) ')
-    plt.tight_layout()
+    ax.set_xlabel('Time')
+    ax.set_ylabel('Kp Index')
+    ax.set_title('Kp Index over Time (UTC+8) ')
+    fig.tight_layout()
 
     img = io.BytesIO()
-    plt.savefig(img, format='png')
+    plt.savefig(img, format='png', bbox_inches='tight')
     img.seek(0)
-    plt.close()
+    plt.close(fig)
+
+    lock.release()
 
     return img
 
@@ -59,24 +66,28 @@ def one_dim_dot_plot(data, color):
         time_tags.append(dt_object_utc8)
         values.append(float(entry[1]))
 
-    plt.figure(figsize=(12, 6), dpi=150)
-    plt.scatter(time_tags, values, color=color, s=0.5, alpha=1)
+    lock.acquire()
 
-    plt.xlabel('Time (UTC+8)')
-    plt.ylabel(data[0][1])
-    plt.title(f'Dot Plot for {data[0][1]}  (UTC+8)')
+    fig = plt.figure(figsize=(12, 6), dpi=150)
+    ax = fig.add_subplot(111)
+    ax.scatter(time_tags, values, color=color, s=0.5, alpha=1)
 
-    plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%Y-%m-%d %H'))
-    plt.gca().xaxis.set_major_locator(plt.matplotlib.dates.HourLocator(interval=1))
+    ax.set_xlabel('Time (UTC+8)')
+    ax.set_ylabel(data[0][1])
+    ax.set_title(f'Dot Plot for {data[0][1]}  (UTC+8)')
+
+    ax.xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%Y-%m-%d %H'))
+    ax.xaxis.set_major_locator(plt.matplotlib.dates.HourLocator(interval=1))
 
     plt.xticks(rotation=45, fontsize=8)
-
-    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+    ax.grid(True, which='both', linestyle='--', linewidth=0.5)
 
     img = io.BytesIO()
     plt.savefig(img, format='png', bbox_inches='tight')
     img.seek(0)
-    plt.close()
+    plt.close(fig)
+
+    lock.release()
 
     return img
 
@@ -91,6 +102,8 @@ def two_dim_dot_plot(data, colors):
         time_tags.append(dt_object_utc8)
         value1.append(float(entry[1]))
         value2.append(float(entry[2]))
+
+    lock.acquire()
 
     fig,ax = plt.subplots(figsize=(12, 6), dpi=150)
     ax.scatter(time_tags, value1, c=colors[0], s=0.5, alpha=1,label=data[0][1])
@@ -112,6 +125,8 @@ def two_dim_dot_plot(data, colors):
     fig.savefig(img, format='png')
     img.seek(0)
     plt.close(fig)
+
+    lock.release()
 
     return img
     pass
