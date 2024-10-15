@@ -94,7 +94,7 @@ function fetchHUXt() {
 }
 
 function fetchLocation() {
-    fetch('/location')
+    fetch(`/location?t=${new Date().getTime()}`)
         .then(response => response.json())
         .then(data => {
             if (!data.error) {
@@ -181,9 +181,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 });
-
-
-
 
 
 

@@ -1,6 +1,9 @@
 # app.py
 import base64
+import math
+import os
 import time
+import webbrowser
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from io import BytesIO
@@ -9,6 +12,7 @@ import aacgmv2
 import geocoder
 from flask import Flask, jsonify, render_template, send_file, Response
 import requests
+
 from utils.plot import Kp_plot, one_dim_dot_plot, two_dim_dot_plot
 
 app = Flask(__name__)
@@ -402,8 +406,13 @@ def get_location():
     g = geocoder.ip('me')
     latitude, longitude = g.latlng
     altitude = 0
-    geomagnetic_lat, geomagnetic_lon, geomagnetic_alt = aacgmv2.get_aacgm_coord(latitude, longitude, altitude, datetime.now(timezone.utc))
-    return jsonify({'latitude': latitude, 'longitude': longitude, 'geolatitude': geomagnetic_lat})
+    try:
+        geomagnetic_lat, geomagnetic_lon, geomagnetic_alt = aacgmv2.get_aacgm_coord(latitude, longitude, altitude, datetime.now(timezone.utc))
+    except RuntimeError:
+        geomagnetic_lat, geomagnetic_lon = mag_altitude(latitude,longitude)
+        geomagnetic_alt = altitude
+
+    return jsonify({'latitude': latitude, 'longitude': longitude, 'geolatitude': round(geomagnetic_lat,4)})
 
 @app.route('/aurora')
 def get_aurora_pic():
@@ -419,5 +428,34 @@ def get_aurora_pic():
             }), 200
     return jsonify({'error': 'Unable to fetch aurora image'}), 404
     pass
+
+def open_browser():
+    webbrowser.open_new('http://127.0.0.1:5000')
+
+def mag_altitude(latitude, longitude):
+    pole_latitude = 80.65
+    pole_longitude = -72.68
+
+    rad = math.pi / 180
+    latitude_rad = latitude * rad
+    longitude_rad = longitude * rad
+    pole_lat_rad = pole_latitude * rad
+    pole_lon_rad = pole_longitude * rad
+
+    delta_lon = pole_lon_rad - longitude_rad
+    x = math.cos(pole_lat_rad) * math.sin(delta_lon)
+    y = math.cos(latitude_rad) * math.sin(pole_lat_rad) - math.sin(latitude_rad) * math.cos(pole_lat_rad) * math.cos(delta_lon)
+    z = math.sin(latitude_rad) * math.sin(pole_lat_rad) + math.cos(latitude_rad) * math.cos(pole_lat_rad) * math.cos(delta_lon)
+
+    azimuth = math.atan2(x, y)
+    elevation = math.asin(z / math.sqrt(x*x + y*y + z*z))
+
+    azimuth_deg = azimuth / rad
+    elevation_deg = elevation / rad
+
+    return azimuth_deg, elevation_deg
+
 if __name__ == '__main__':
+    if os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+        open_browser()
     app.run(debug=True)
